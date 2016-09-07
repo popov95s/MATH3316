@@ -21,6 +21,7 @@ int main(){
 	size_t size = 201;
 	Matrix z = Linspace(-1.0, 1.0, 1,size);
 
+	z.Write("z.txt");
 	evaluateAndWritePolynomials(z,4);
 	evaluateAndWritePolynomials(z,8);
 	evaluateAndWritePolynomials(z,12);
