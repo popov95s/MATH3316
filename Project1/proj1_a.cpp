@@ -1,4 +1,4 @@
-
+/*author : Stefan Popov */
 #include <iostream>
 #include <vector>
 #include "nest.cpp"
@@ -7,15 +7,19 @@
 
 using namespace std;
 
+//gets coefficients
 Matrix getCoefficients(int n);
 
 //simple factorial function
 int factorial(int x, int result = 1) {
   if (x == 1 || x == 0) return result; else return factorial(x - 1, x * result);
 }
-
+//evaluates polynomials and writes to file
 void evaluateAndWritePolynomials(Matrix,int);
+//evaluates exponential and writes to file
 void evaluateExponential(Matrix);
+
+//main
 int main(){
 	
 	size_t size = 201;

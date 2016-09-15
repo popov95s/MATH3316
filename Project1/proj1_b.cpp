@@ -1,3 +1,5 @@
+/*author : Stefan Popov */
+
 #include "matrix.hpp"
 #include <vector>
 #include <math.h>
@@ -17,27 +19,37 @@ double second_part_of_that_equation(double a, double h){
 	return (-(mu1*pow(a+h,-3)) - (mu1*pow(a,-3)))/h;  
 }
 
+
+//returns the delta plus 
 double plus_dp(double a, double h){
 	return plus_fa(a,h) + second_part_of_that_equation(a,h);
 }
 
+
+//calculates r
 double calculate_r(double a, double h){
 	return (-3*(pow(a,-4)) - (plus_dp(a,h)))/(-3*(pow(a,-4)));
 }
 
+//calculates c2
 double calculate_c2(double a){
 	const double edp=pow(2,-52);
 	return (pow(a,-3)*edp)/(-3*pow(a,-4));
 }
 
+//calculates c1
 double calculate_c1(double a){
 	return (-12*pow(a,-5))/(2*(-3)*(pow(a,-4)));
 }
 
+
+//calculates R
 double calculate_R(double a, double h){	
 	return calculate_c1(a)*h + calculate_c2(a)*(1/h);
 }
 
+
+//generates n
 vector<double> generate_n(){
 	vector<double> ns;
 	for (double i =1.0 ; i<53.0;i++){
@@ -46,6 +58,7 @@ vector<double> generate_n(){
 	return ns;
 }
 
+//generates h
 vector<double> generate_h(vector<double> ns){
 	vector<double> hs; 
 	for (int i =0 ; i <52; i++){
@@ -54,6 +67,8 @@ vector<double> generate_h(vector<double> ns){
 	return hs;
 }
 
+
+//generates r
 vector<double> generate_r(double x, vector<double> hs){
 	vector<double> rs;
 	for(int i =0 ; i<hs.size();i++){
@@ -62,6 +77,7 @@ vector<double> generate_r(double x, vector<double> hs){
 	return rs;
 }
 
+//generates R
 vector<double> generate_R(double x, vector<double> hs){
 	vector<double> Rs;
 	for(int i =0 ;i<hs.size();i++){
@@ -71,11 +87,14 @@ vector<double> generate_R(double x, vector<double> hs){
 
 }
 
+//writes to file
 void writeVector(vector<double> wV, string fileName){
-	Matrix m(wV);
+	Matrix m(1, wV.size(),wV);
 	m.Write(fileName.c_str());
 }
 
+
+//main method
 int main(){
 
 	const double a=3;

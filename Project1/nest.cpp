@@ -1,7 +1,10 @@
+/*author : Stefan Popov */
 #include "matrix.hpp"
 
 using namespace std;
 
+
+//based on pseudocode on page 8
 double nest(Matrix& a, double x){
 
 
