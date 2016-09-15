@@ -28,18 +28,18 @@ double plus_dp(double a, double h){
 
 //calculates r
 double calculate_r(double a, double h){
-	return (-3*(pow(a,-4)) - (plus_dp(a,h)))/(-3*(pow(a,-4)));
+	return abs((-3*(pow(a,-4)) - (plus_dp(a,h)))/(-3*(pow(a,-4))));
 }
 
 //calculates c2
 double calculate_c2(double a){
 	const double edp=pow(2,-52);
-	return (pow(a,-3)*edp)/(-3*pow(a,-4));
+	return abs((pow(a,-3)*edp)/(-3*pow(a,-4)));
 }
 
 //calculates c1
 double calculate_c1(double a){
-	return (-12*pow(a,-5))/(2*(-3)*(pow(a,-4)));
+	return abs((-12*pow(a,-5))/(2*(-3)*(pow(a,-4))));
 }
 
 
