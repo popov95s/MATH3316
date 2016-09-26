@@ -6,18 +6,19 @@ using namespace std;
 
 
 Matrix createVandermonde(Matrix& v){
-	vector<vector<double>> vandermonde;
+	vector<vector<double> > vandermonde;
 	vector<double> temp;
 	for(int i=0; i<v.Cols(); i++){
 		for(int j=0; j<v.Cols(); j++){
 			temp.push_back(pow(v[0][i],j));
+		}
 		vandermonde.push_back(temp);
 		temp.clear();
 	}
 	return Matrix(vandermonde);
 }
 
-vector<double> getVector(Matrix& x){
+vector<double> getVector(Matrix x){
 	vector<double> returnVec;
 	for(int i=0; i<x.Cols(); i++){
 		returnVec.push_back(x[0][i]);
@@ -50,17 +51,23 @@ int main(){
 	Matrix b5 = x5*createVandermonde(v5);
 	
 	
-	Matrix x1Hat = Solve(x1*createVandermonde(v1));
-	Matrix x2Hat = Solve(x2*createVandermonde(v2));
-	Matrix x3Hat = Solve(x3*createVandermonde(v3));
-	Matrix x4Hat = Solve(x4*createVandermonde(v4));
-	Matrix x5Hat = Solve(x5*createVandermonde(v5));
+	Matrix a1 = createVandermonde(v1);
+	Matrix a2 = createVandermonde(v2);
+	Matrix a3 = createVandermonde(v3);
+	Matrix a4 = createVandermonde(v4);	
+	Matrix a5 = createVandermonde(v5);
+
+	Matrix x1Hat = Solve(a1,b1);
+	Matrix x2Hat = Solve(a2,b2);
+	Matrix x3Hat = Solve(a3,b3);
+	Matrix x4Hat = Solve(a4,b4);
+	Matrix x5Hat = Solve(a5,b5);
 	
-	vector<double> error1Vector = getVector(x1Hat- x1);
-	vector<double> error2Vector = getVector(x2Hat- x2);
-	vector<double> error3Vector = getVector(x3Hat- x3);
-	vector<double> error4Vector = getVector(x4Hat- x4);
-	vector<double> error5Vector = getVector(x5Hat- x5);
+	vector<double> error1Vector = getVector(x1Hat - x1);
+	vector<double> error2Vector = getVector(x2Hat - x2);
+	vector<double> error3Vector = getVector(x3Hat - x3);
+	vector<double> error4Vector = getVector(x4Hat - x4);
+	vector<double> error5Vector = getVector(x5Hat - x5);
 	
 	
 	double twoNorm1 = Norm(error1Vector);
