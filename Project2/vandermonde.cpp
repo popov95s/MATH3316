@@ -1,26 +1,27 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include "matrix.hpp"
 using namespace std;
 
 
 Matrix createVandermonde(Matrix& v){
-	vector<vector<double> > vandermonde;
+    vector< vector<double> > vandermonde;
 	vector<double> temp;
-	for(int i=0; i<v.Cols(); i++){
-		for(int j=0; j<v.Cols(); j++){
-			temp.push_back(pow(v[0][i],j));
-		}
-		vandermonde.push_back(temp);
+    for(float i=0.0; i<(float)v.Cols(); i+=1.0){
+        for(int j=0; j<v.Cols(); j++){
+            temp.push_back(powf((float)v[0][j],i));
+        }
+        vandermonde.push_back(temp);
 		temp.clear();
 	}
-	return Matrix(vandermonde);
+    Matrix v1(vandermonde);
+    return v1;
 }
 
 vector<double> getVector(Matrix x){
 	vector<double> returnVec;
-	for(int i=0; i<x.Cols(); i++){
+    for(int i=0; i<x.Rows(); i++){
 		returnVec.push_back(x[0][i]);
 	}
 	return returnVec;
@@ -32,30 +33,30 @@ int main(){
 
 	double n[5]= {5,9,17,33,65};
 	
-	Matrix v1 = Linspace(-1.0, 1.0, 1, (size_t)n[0]);
-	Matrix v2 = Linspace(-1.0, 1.0, 1, (size_t)n[1]);
-	Matrix v3 = Linspace(-1.0, 1.0, 1, (size_t)n[2]);
-	Matrix v4 = Linspace(-1.0, 1.0, 1, (size_t)n[3]);
-	Matrix v5 = Linspace(-1.0, 1.0, 1, (size_t)n[4]);
+    Matrix v1 = Linspace(0.0, 1.0, 1, (size_t)n[0]);
+    Matrix v2 = Linspace(0.0, 1.0, 1, (size_t)n[1]);
+    Matrix v3 = Linspace(0.0, 1.0, 1, (size_t)n[2]);
+    Matrix v4 = Linspace(0.0, 1.0, 1, (size_t)n[3]);
+    Matrix v5 = Linspace(0.0, 1.0, 1, (size_t)n[4]);
 	
-	Matrix x1 = Random(1, (size_t)n[0]);
-	Matrix x2 = Random(1, (size_t)n[1]);
-	Matrix x3 = Random(1, (size_t)n[2]);
-	Matrix x4 = Random(1, (size_t)n[3]);
-	Matrix x5 = Random(1, (size_t)n[4]);
+    Matrix x1 = Random((size_t)n[0],1);
+    Matrix x2 = Random((size_t)n[1],1);
+    Matrix x3 = Random((size_t)n[2],1);
+    Matrix x4 = Random((size_t)n[3],1);
+    Matrix x5 = Random((size_t)n[4],1);
+
+    Matrix a1 = createVandermonde(v1);
+    Matrix a2 = createVandermonde(v2);
+    Matrix a3 = createVandermonde(v3);
+    Matrix a4 = createVandermonde(v4);
+    Matrix a5 = createVandermonde(v5);
+
+    Matrix b1 = a1*x1;
+    Matrix b2 = a2*x2;
+    Matrix b3 = a3*x3;
+    Matrix b4 = a4*x4;
+    Matrix b5 = a5*x5;
 	
-	Matrix b1 = x1*createVandermonde(v1);
-	Matrix b2 = x2*createVandermonde(v2);
-	Matrix b3 = x3*createVandermonde(v3);
-	Matrix b4 = x4*createVandermonde(v4);
-	Matrix b5 = x5*createVandermonde(v5);
-	
-	
-	Matrix a1 = createVandermonde(v1);
-	Matrix a2 = createVandermonde(v2);
-	Matrix a3 = createVandermonde(v3);
-	Matrix a4 = createVandermonde(v4);	
-	Matrix a5 = createVandermonde(v5);
 
 	Matrix x1Hat = Solve(a1,b1);
 	Matrix x2Hat = Solve(a2,b2);
@@ -82,10 +83,10 @@ int main(){
 	vector<double> residual4 = getVector(createVandermonde(v4)*x4Hat - b4);
 	vector<double> residual5 = getVector(createVandermonde(v5)*x5Hat - b5);
 	
-	cout<<twoNorm1<<" "<<residual1<<endl;
-	cout<<twoNorm2<<" "<<residual2<<endl;
-	cout<<twoNorm3<<" "<<residual3<<endl;
-	cout<<twoNorm4<<" "<<residual4<<endl;
-	cout<<twoNorm5<<" "<<residual5<<endl;
+    cout<<twoNorm1<<" "<<Norm(residual1)<<endl;
+    cout<<twoNorm2<<" "<<Norm(residual2)<<endl;
+    cout<<twoNorm3<<" "<<Norm(residual3)<<endl;
+    cout<<twoNorm4<<" "<<Norm(residual4)<<endl;
+    cout<<twoNorm5<<" "<<Norm(residual5)<<endl;
 	return 0;
 }

@@ -48,7 +48,7 @@ public:
   Matrix(size_t m, size_t n, std::valarray<double> vals);
   Matrix(std::vector<double> vals);
   Matrix(std::valarray<double> vals);
-  Matrix(std::vector< std::vector<double> > vals);
+  Matrix(std::vector< std::vector<double> >& vals);
   Matrix(std::valarray< std::valarray<double> > vals);
   Matrix(std::string mat_spec);                  // string-based matrix constructor
   Matrix(const Matrix& A);                       // copy constructors

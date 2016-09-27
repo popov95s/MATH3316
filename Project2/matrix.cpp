@@ -102,9 +102,17 @@ Matrix::Matrix(std::valarray<double> vals) {
 }
 
 // constructor that copies input data (2D vector)
-Matrix::Matrix(vector< vector<double> > vals) {
+Matrix::Matrix(vector< vector<double> >& vals) {
   ncols = vals.size();
   nrows = vals[0].size();
+  for (size_t j=0; j<ncols;j++){
+      vector<double> temp;
+      for(size_t i=0; i<nrows;i++){
+          temp.push_back(0.0);
+      }
+      data.push_back(temp);
+      temp.clear();
+  }
   for (size_t j=0; j<ncols; j++)
     if (vals[j].size() != nrows)
       cerr << "Matrix constructor error: rows in 2D vector must have the same length\n";
