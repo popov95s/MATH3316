@@ -1,37 +1,9 @@
-#include <iostream>
-#include "matrix.cpp"
-#include "fcn.hpp"
-#include "bisection.cpp"
 #include <math.h>
+#include <iostream>
+#include "fcn.hpp"
+#include <stdlib.h>
 
-double newton(Fcn& f, Fcn& df, double x, int maxit, double tol, bool show_iterates);
-
-
-class f: public Fcn{
-public:
-  double operator()(double x) {   // function evaluation
-    return x*x*(x-3)*(x+2);
-  }
-};
-
-class derf: public Fcn{
-public:
-  double operator()(double x) {   // function evaluation
-    return x*(4*x*x - 3*x - 12);
-  }
-};
-
-int main(){
-	f func;
-	derf derfunc;
-	double tol[3]= { pow(10.0,-1.0),pow(10.0,-5.0),pow(10.0,-9.0)};
-	double x0[3]= {-3,1,2};
-	for (int i=0; i<3;i++){
-		for(int j=0;j<3;j++){
-			cout<<newton(func,derfunc,x0[i],50,tol[j],true)<<endl<<endl;
-		}
-	}
-}
+using namespace std;
 
 double newton(Fcn& f, Fcn& df, double x, int maxit, double tol, bool show_iterates){
 	double x1=0.0;

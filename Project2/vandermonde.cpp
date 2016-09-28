@@ -10,7 +10,7 @@ Matrix createVandermonde(Matrix& v){
 	vector<double> temp;
     for(float i=0.0; i<(float)v.Cols(); i+=1.0){
         for(int j=0; j<v.Cols(); j++){
-            temp.push_back(powf((float)v[0][j],i));
+        	temp.push_back(powf((float)v[j][0],i));
         }
         vandermonde.push_back(temp);
 		temp.clear();
@@ -64,29 +64,30 @@ int main(){
 	Matrix x4Hat = Solve(a4,b4);
 	Matrix x5Hat = Solve(a5,b5);
 	
+
 	vector<double> error1Vector = getVector(x1Hat - x1);
 	vector<double> error2Vector = getVector(x2Hat - x2);
 	vector<double> error3Vector = getVector(x3Hat - x3);
 	vector<double> error4Vector = getVector(x4Hat - x4);
 	vector<double> error5Vector = getVector(x5Hat - x5);
 	
-	
+	vector<double> residual1 = getVector(createVandermonde(v1)*x1Hat - createVandermonde(v1)*x1);
+	vector<double> residual2 = getVector(createVandermonde(v2)*x2Hat - createVandermonde(v2)*x2);
+	vector<double> residual3 = getVector(createVandermonde(v3)*x3Hat - createVandermonde(v3)*x3);
+	vector<double> residual4 = getVector(createVandermonde(v4)*x4Hat - createVandermonde(v4)*x4);
+	vector<double> residual5 = getVector(createVandermonde(v5)*x5Hat - createVandermonde(v5)*x5);
+		
 	double twoNorm1 = Norm(error1Vector);
 	double twoNorm2 = Norm(error2Vector);
 	double twoNorm3 = Norm(error3Vector);
 	double twoNorm4 = Norm(error4Vector);
 	double twoNorm5 = Norm(error5Vector);
 	
-	vector<double> residual1 = getVector(createVandermonde(v1)*x1Hat - b1);
-	vector<double> residual2 = getVector(createVandermonde(v2)*x2Hat - b2);
-	vector<double> residual3 = getVector(createVandermonde(v3)*x3Hat - b3);
-	vector<double> residual4 = getVector(createVandermonde(v4)*x4Hat - b4);
-	vector<double> residual5 = getVector(createVandermonde(v5)*x5Hat - b5);
-	
-    cout<<twoNorm1<<" "<<Norm(residual1)<<endl;
-    cout<<twoNorm2<<" "<<Norm(residual2)<<endl;
-    cout<<twoNorm3<<" "<<Norm(residual3)<<endl;
-    cout<<twoNorm4<<" "<<Norm(residual4)<<endl;
-    cout<<twoNorm5<<" "<<Norm(residual5)<<endl;
-	return 0;
+
+    cout<<Norm(error1Vector)<<" "<<Norm(residual1)<<endl;
+    cout<<Norm(error2Vector)<<" "<<Norm(residual2)<<endl;
+    cout<<Norm(error3Vector)<<" "<<Norm(residual3)<<endl;
+    cout<<Norm(error4Vector)<<" "<<Norm(residual4)<<endl;
+    cout<<Norm(error5Vector)<<" "<<Norm(residual5)<<endl;
+    return 0;
 }
