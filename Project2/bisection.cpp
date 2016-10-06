@@ -4,7 +4,7 @@
    16 September 2015 */
 
 // Inclusions
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
 #include <math.h>

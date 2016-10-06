@@ -1,3 +1,8 @@
+/*
+MATH3316 Project2 
+Author: Stefan Popov
+Oct 5th 2016
+*/
 #include <iostream>
 #include <vector>
 #include <cmath>

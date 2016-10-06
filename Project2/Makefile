@@ -1,27 +1,31 @@
-###################################################################
-#  Makefile for project 2
-#
-#  Daniel R. Reynolds
-#  SMU Mathematics
-#  Math 3316
-#  16 September 2015
-###################################################################
-
-# compilation definitions
+# compiler & flags
 CXX = g++
 CXXFLAGS = -O -std=c++11
+#CXXFLAGS = -O0 -g -std=c++11
 
 # makefile targets
-all : test_bisect.exe 
+all : vandermonde.exe test_newton.exe kepler.exe
 
-test_bisect.exe : test_bisect.cpp bisection.cpp
-	${CXX} ${CXXFLAGS} $^ -o $@
+vandermonde.exe : vandermonde.cpp vandermonde.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+test_newton.exe : test_newton.cpp matrix.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+kepler.exe : kepler.cpp matrix.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+vandermonde.o : matrix.cpp vandermonde.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+test_newton.o : matrix.cpp test_newton.cpp 
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+kepler.o : matrix.cpp kepler.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean :
-	\rm -f *.o *.txt
+	\rm -f *.o *.out a_data *.txt
 
 realclean : clean
 	\rm -f *.exe *~
-
-
-####### End of Makefile #######
