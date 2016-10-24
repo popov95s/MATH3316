@@ -1,7 +1,7 @@
 #include <iostream>
 #include "matrix.hpp"
 #include <vector>
-#include "fcn.hpp   "
+#include "fcn.hpp"
 using namespace std;
 vector<double> as;
     
@@ -26,7 +26,7 @@ int main(){
     Matrix xis(xi);
     Matrix yis(yi);
     Matrix aMatrix= Newton_coefficients(xis,yis);
-    Matrix xValues= Linspace(-3,3,201,1);
+    Matrix xValues= Linspace(-3,3,1,201);
     vector<double> xInterpolated;
     vector<double> fxs;
     vector<double> errorVector;
@@ -47,26 +47,26 @@ int main(){
 }
 
 double Newton_basis(Matrix& xnodes, int n, double x){
-    double phi= 0.0;
+    double phi= 1.0;
     for(int i=0 ; i < n; i++){
-        phi*= (x-xnodes[i][0]);
+        phi*= (x-xnodes[0][i]);
     }
     return phi;
 }
 
 double Newton_nestedform(Matrix& a, Matrix& xnodes, double x){
-    double pnOfX=a[0][0];
+    double pnOfX=0.0;
 
-    for(int i= 1 ; i< a.Cols(); i++){
-        pnOfX+=Newton_basis(xnodes,i, x)*a[i][0];
+    for(int i= 1 ; i< a.Rows(); i++){
+        pnOfX+=Newton_basis(xnodes,i, x)*a[0][i];
     }
     return pnOfX;
 }
 Matrix Newton_coefficients(Matrix& xnodes, Matrix& ynodes){
-    for(int i = 1; i< xnodes.Cols(); i++){
+    for(int i = 0; i< xnodes.Rows(); i++){
         Matrix asTemp(as);
-        double firstPart = ynodes[i][0] - Newton_nestedform(asTemp,xnodes, xnodes[i][0]);
-        double secondPart =(Newton_basis(xnodes,i,xnodes[i][0]));
+        double firstPart = ynodes[0][i] - Newton_nestedform(asTemp,xnodes, xnodes[0][i]);
+        double secondPart =(Newton_basis(xnodes,i,xnodes[0][i]));
         as.push_back((firstPart)/secondPart);
     }
     Matrix aMatrix(as);
