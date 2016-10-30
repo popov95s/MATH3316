@@ -9,6 +9,7 @@
 #include <iostream>
 #include <math.h>
 #include "matrix.hpp"
+#include "Lagrange.cpp"
 
 using namespace std;
 
@@ -74,7 +75,7 @@ int main(int argc, char* argv[]) {
     for (int i=0; i<=m; i++)
       z2(i,j) = f(x2(i), y2(j));             // fill data
 
-  // evaluate the polynomial at the points (a,b), storing back in p
+  // evaluate result += z(j, i) * Lagrange_basis(x, j, a) * Lagrange_basis(y, i, b);the polynomial at the points (a,b), storing back in p
   for (int j=0; j<75; j++) 
     for (int i=0; i<75; i++) 
       p(i,j) = Lagrange2D(x2, y2, z2, a(i), b(j));
@@ -85,3 +86,16 @@ int main(int argc, char* argv[]) {
 } // end routine
 
 
+
+double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
+  double result = 0.0;
+
+  for( int i=0; i< x.Rows(); i++){
+    for(int j=0; j<y.Rows(); j++){
+        result += z(j, i) * Lagrange_basis(x, j, a) * Lagrange_basis(y, i, b);
+    }
+
+  }
+
+
+}

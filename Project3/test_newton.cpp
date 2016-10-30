@@ -43,6 +43,7 @@ int main(){
     xInterpol.Write("xInterpol.txt");
     fxMatrix.Write("y.txt");
     errorMatrix.Write("error.txt");
+    xValues.Write("x.txt");
     return 0;
 }
 
@@ -57,7 +58,7 @@ double Newton_basis(Matrix& xnodes, int n, double x){
 double Newton_nestedform(Matrix& a, Matrix& xnodes, double x){
     double pnOfX=0.0;
 
-    for(int i= 1 ; i< a.Rows(); i++){
+    for(int i= 0 ; i< a.Rows(); i++){
         pnOfX+=Newton_basis(xnodes,i, x)*a[0][i];
     }
     return pnOfX;
