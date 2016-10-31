@@ -3,10 +3,6 @@
    Math 3316
    1 October 2015 */
 
-/*
-Edited by Stefan Popov for Project 3 in MATH3316
-to achieve Lagrange2D functionality
-*/
 
 
 // Inclusions
@@ -16,6 +12,7 @@ to achieve Lagrange2D functionality
 #include <math.h>
 #include "matrix.hpp"
 #include "Lagrange.cpp"
+#include "Lagrange2D.cpp"
 
 using namespace std;
 
@@ -93,16 +90,4 @@ int main(int argc, char* argv[]) {
 
 
 
-//Lagrange2D evaluates 
 
-double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
-  double result = 0.0;
-
-  for( int i=0; i< x.Rows(); i++){
-    for(int j=0; j<y.Rows(); j++){
-        result += z(j, i) * Lagrange_basis(x, j, a) * Lagrange_basis(y, i, b);
-    }
-
-  }
-  return result;
-}
