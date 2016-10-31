@@ -6,6 +6,7 @@ Oct 23rd 2016
 
 #include <iostream>
 #include <string>
+#include <math.h>
 #include "matrix.hpp"
 #include "Lagrange.cpp"
 using namespace std;
@@ -23,22 +24,32 @@ int main(){
 	int n2=24, m2=24;
 
 	//call interpolate function
-	interpolate(n1,m1, "p6_uni.txt");
-	interpolate(n2,m2, "p24_uni.txt");
+	interpolate(n1,m1, "p6_Cheb.txt");
+	interpolate(n2,m2, "p24_Cheb.txt");
 	
 }
 
+
+//evaluate chebyshevNodes
+Matrix chebyshevNodesBuild(int m){
+	Matrix x(1,m+1);
+	for(int i =0 ;i <m+1; i++){
+		x[i][0]= 4*cos((2*(i+1)*M_PI)/(2*m+2));
+	}
+	return x;
+}
+
 void interpolate(int m, int n, string outputFile){
-	//declare f
+	//declare function
 	auto f = [](const double x, const double y) -> double { 
     	return 1/(1+x*x+y*y);
   	};
 	
-	//create a set of m+1 nodes from -4 to 4  
-	Matrix xNodes = Linspace(-4,4,1,m+1);
+	//create a set of m+1 chebyshev  
+	Matrix xNodes = chebyshevNodesBuild(m);
 
-	//create a set of n+1 nodes from -4 to 4  
-	Matrix yNodes = Linspace(-4,4,1,n+1);
+	//create a set of n+1 chebyshev nodes  
+	Matrix yNodes = chebyshevNodesBuild(n);
 
 	//create a matrix with dimensions [m+1][n+1] for the function values f(x_i,y_i)
 	Matrix fValues(m+1,n+1);
@@ -70,20 +81,11 @@ void interpolate(int m, int n, string outputFile){
 		}
 	}
 
-	//find f(a,b)	
-	Matrix Runge(201,101);
-	for( int i = 0 ; i < aVals.Cols(); i++){
-		for ( int j=0 ; j<bVals.Cols(); j++){
-			Runge[j][i] = f(aVals[0][i],bVals[0][i]);
-		}
-	}
-	//write to files
-	Runge.Write("Runge.txt");
-
+	
+	//write to file
 	p6.Write(outputFile.c_str());
 
 }
-//lagrange2D function evaluator
 double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
   double result = 0.0;
 
@@ -94,6 +96,5 @@ double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
 
   }
   return result;
-
 
 }

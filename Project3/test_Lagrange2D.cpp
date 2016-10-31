@@ -3,6 +3,12 @@
    Math 3316
    1 October 2015 */
 
+/*
+Edited by Stefan Popov for Project 3 in MATH3316
+to achieve Lagrange2D functionality
+*/
+
+
 // Inclusions
 #include <stdlib.h>
 #include <stdio.h>
@@ -87,6 +93,8 @@ int main(int argc, char* argv[]) {
 
 
 
+//Lagrange2D evaluates 
+
 double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
   double result = 0.0;
 
@@ -96,6 +104,5 @@ double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
     }
 
   }
-
-
+  return result;
 }
