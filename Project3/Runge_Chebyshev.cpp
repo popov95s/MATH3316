@@ -56,7 +56,7 @@ void interpolate(int m, int n, string outputFile){
 	//fill values for f matrix
 	for(int i=0; i<m+1;i++){
 		for(int j=0; j<n+1;j++){
-			fValues[i][j]=f(xNodes[i][0],yNodes[j][0]);
+			fValues[j][i]=f(xNodes[i][0],yNodes[j][0]);
 		}
 	}
 
@@ -77,7 +77,7 @@ void interpolate(int m, int n, string outputFile){
 	//evaluate the polynomial interpolant p(a_i,b_j)
 	for( int i = 0 ; i < aVals.Cols(); i++){
 		for ( int j=0 ; j<bVals.Cols(); j++){
-			p6[j][i] = Lagrange2D(xNodes, yNodes, fValues, aVals[0][i], bVals[0][j]);
+			p6[j][i] = Lagrange2D(xNodes, yNodes, fValues, aVals[i][0], bVals[j][0]);
 		}
 	}
 

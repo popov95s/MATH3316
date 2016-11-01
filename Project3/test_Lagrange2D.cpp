@@ -11,14 +11,9 @@
 #include <iostream>
 #include <math.h>
 #include "matrix.hpp"
-#include "Lagrange.cpp"
 #include "Lagrange2D.cpp"
 
 using namespace std;
-
-// function prototypes
-double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b);
-
 
 // This routine tests the function lagrange2D.cpp.
 int main(int argc, char* argv[]) {
