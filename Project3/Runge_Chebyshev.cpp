@@ -89,8 +89,8 @@ void interpolate(int m, int n, string outputFile){
 double Lagrange2D(Matrix& x, Matrix& y, Matrix& z, double a, double b){
   double result = 0.0;
 
-  for( int i=0; i< x.Rows(); i++){
-    for(int j=0; j<y.Rows(); j++){
+  for( int i=0; i< x.Cols(); i++){
+    for(int j=0; j<y.Cols(); j++){
         result += z(j, i) * Lagrange_basis(x, j, a) * Lagrange_basis(y, i, b);
     }
 

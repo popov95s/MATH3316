@@ -5,6 +5,7 @@
 #  SMU Mathematics
 #  Math 3316
 #  28 September 2015
+# Edited by Stefan Popov on Oct 23 2016 for Project 3 in Math 3316
 ###################################################################
 
 # compiler & flags
