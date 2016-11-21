@@ -1,3 +1,4 @@
+# Stefan Popov Oct 5 2016 - MATH3316 Project2
 # compiler & flags
 CXX = g++
 CXXFLAGS = -O -std=c++11
